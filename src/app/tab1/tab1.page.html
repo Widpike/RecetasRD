@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title>Recetas RD</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h2>Recetas destacadas</h2>
+
+  <ion-card *ngFor="let receta of recetas" (click)="abrirDetalle(receta.id)">
+    <img [src]="receta.imagen" [alt]="receta.nombre" />
+    <ion-card-header>
+      <ion-card-title>{{ receta.nombre }}</ion-card-title>
+      <ion-card-subtitle>{{ receta.categoria }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>{{ receta.descripcion }}</p>
+      <p><strong>Tiempo:</strong> {{ receta.tiempo }}</p>
+      <p><strong>Porciones:</strong> {{ receta.porciones }}</p>
+      <p><strong>Valoración:</strong> {{ receta.valoracion }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>Categorías</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-searchbar
+    placeholder="Buscar receta por nombre"
+    (ionInput)="onBuscar($event)">
+  </ion-searchbar>
+
+  <ion-segment
+    [value]="categoriaSeleccionada"
+    (ionChange)="onCategoriaChange($event)">
+    <ion-segment-button *ngFor="let categoria of categorias" [value]="categoria">
+      <ion-label>{{ categoria }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div class="ion-margin-top">
+    <ion-card *ngFor="let receta of recetasFiltradas" (click)="abrirDetalle(receta.id)">
+      <img [src]="receta.imagen" [alt]="receta.nombre" />
+      <ion-card-header>
+        <ion-card-title>{{ receta.nombre }}</ion-card-title>
+        <ion-card-subtitle>{{ receta.categoria }}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p>{{ receta.descripcion }}</p>
+        <p><strong>Tiempo:</strong> {{ receta.tiempo }}</p>
+        <p><strong>Porciones:</strong> {{ receta.porciones }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class="ion-text-center ion-margin-top" *ngIf="recetasFiltradas.length === 0">
+    <p>No se encontraron recetas.</p>
+  </div>
+</ion-content>

@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalle de receta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" *ngIf="receta">
+  <ion-card>
+    <img [src]="receta.imagen" [alt]="receta.nombre" />
+
+    <ion-card-header>
+      <ion-card-title>{{ receta.nombre }}</ion-card-title>
+      <ion-card-subtitle>{{ receta.categoria }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>{{ receta.descripcion }}</p>
+      <p><strong>Tiempo:</strong> {{ receta.tiempo }}</p>
+      <p><strong>Porciones:</strong> {{ receta.porciones }}</p>
+
+      <ion-button expand="block" color="success" (click)="agregarALista()">
+        Agregar ingredientes
+      </ion-button>
+
+      <ion-button expand="block" color="primary" (click)="agregarYVerLista()">
+        Agregar y ver lista
+      </ion-button>
+
+      <ion-button expand="block" color="tertiary" (click)="irAMercados()">
+        Ver mercados cercanos
+      </ion-button>
+
+      <ion-button expand="block" color="medium" (click)="compartirReceta()">
+        Compartir receta
+      </ion-button>
+
+      <p *ngIf="mensaje" style="color: green; margin-top: 10px;">
+        {{ mensaje }}
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <h2>Video instructivo</h2>
+  <video controls playsinline preload="metadata">
+    <source [src]="receta.videoUrl" type="video/mp4" />
+    Tu navegador no soporta la reproducción de video.
+  </video>
+
+  <h2>Ingredientes</h2>
+  <ion-list>
+    <ion-item *ngFor="let ingrediente of receta.ingredientes">
+      <ion-label>{{ ingrediente.nombre }} - {{ ingrediente.cantidad }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <h2>Paso a paso con gestos</h2>
+  <div #zonaGestos class="zona-gestos" *ngIf="pasoActual">
+    <p class="ayuda-gestos">Desliza a la izquierda o derecha para cambiar de paso</p>
+    <h3>Paso {{ pasoActual.numero }}</h3>
+    <p>{{ pasoActual.instruccion }}</p>
+
+    <div class="botones-pasos">
+      <ion-button (click)="anteriorPaso()" [disabled]="pasoActualIndex === 0">
+        Anterior
+      </ion-button>
+
+      <ion-button
+        (click)="siguientePaso()"
+        [disabled]="receta && pasoActualIndex === receta.pasos.length - 1">
+        Siguiente
+      </ion-button>
+    </div>
+  </div>
+
+  <h2>Todos los pasos</h2>
+  <ion-list>
+    <ion-item *ngFor="let paso of receta.pasos">
+      <ion-label>Paso {{ paso.numero }}: {{ paso.instruccion }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <h2>Valorar receta</h2>
+  <ion-item>
+    <ion-label>Puntuación</ion-label>
+    <ion-select [(ngModel)]="puntuacion">
+      <ion-select-option [value]="1">1 estrella</ion-select-option>
+      <ion-select-option [value]="2">2 estrellas</ion-select-option>
+      <ion-select-option [value]="3">3 estrellas</ion-select-option>
+      <ion-select-option [value]="4">4 estrellas</ion-select-option>
+      <ion-select-option [value]="5">5 estrellas</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-textarea
+      [(ngModel)]="comentario"
+      placeholder="Escribe tu comentario">
+    </ion-textarea>
+  </ion-item>
+
+  <ion-button expand="block" color="warning" (click)="guardarValoracion()">
+    Guardar valoración
+  </ion-button>
+
+  <h2>Comentarios guardados</h2>
+  <ion-list *ngIf="valoraciones.length > 0">
+    <ion-item *ngFor="let valoracion of valoraciones">
+      <ion-label>
+        <h3>{{ valoracion.puntuacion }} estrellas</h3>
+        <p>{{ valoracion.comentario || 'Sin comentario' }}</p>
+        <small>{{ valoracion.fecha }}</small>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <p *ngIf="valoraciones.length === 0">Aún no hay valoraciones para esta receta.</p>
+</ion-content>

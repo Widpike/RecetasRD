@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-title>Utilidades</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        <ion-icon name="restaurant-outline"></ion-icon>
+        Recetas RD
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Desde aquí puedes acceder rápidamente a funciones importantes de la app.
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        <ion-icon name="cart-outline"></ion-icon>
+        Lista de compras
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Consulta y administra los ingredientes guardados desde las recetas.
+      <ion-button expand="block" color="success" (click)="abrirListaCompras()">
+        Ver lista de compras
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        <ion-icon name="location-outline"></ion-icon>
+        Mercados cercanos
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Encuentra mercados y supermercados próximos a tu ubicación actual.
+      <ion-button expand="block" color="tertiary" (click)="abrirMercados()">
+        Ver mercados
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" fill="outline" color="medium" (click)="irAInicio()">
+    Volver al inicio
+  </ion-button>
+</ion-content>

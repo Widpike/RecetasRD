@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>Mercados cercanos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Ubicación actual</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-button expand="block" color="primary" (click)="obtenerUbicacion()">
+        Obtener ubicación
+      </ion-button>
+
+      <p *ngIf="mensaje">{{ mensaje }}</p>
+
+      <div *ngIf="latitud !== null && longitud !== null">
+        <p><strong>Latitud:</strong> {{ latitud }}</p>
+        <p><strong>Longitud:</strong> {{ longitud }}</p>
+
+        <ion-button expand="block" color="success" (click)="abrirMercados()">
+          Ver mercados cercanos
+        </ion-button>
+
+        <ion-button expand="block" color="warning" (click)="abrirSupermercados()">
+          Ver supermercados cercanos
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
